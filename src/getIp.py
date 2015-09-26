@@ -28,7 +28,7 @@ longtime = open('/var/www/html/hosts/hosts.'+str(time.strftime( ISOTIMEFORMAT, t
 shorttime = open('/var/www/html/hosts/host.latest','w')
 
 for d in open('../data/domains.txt').readlines():
-	sleep(10)
+	time.sleep(10)
 	try:
 		ips =domain_to_ip(dnsServer,d.strip())
 		if len(ips) != 0 :
