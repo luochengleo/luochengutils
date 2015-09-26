@@ -24,19 +24,31 @@ def domain_to_ip(dnsserver,domain):
 
 dnsServer = "8.8.8.8"
 
-longtime = open('/var/www/html/hosts/hosts.'+str(time.strftime( ISOTIMEFORMAT, time.localtime())),'w')
-shorttime = open('/var/www/html/hosts/host.latest','w')
 
-for d in open('../data/domains.txt').readlines():
-	time.sleep(10)
-	try:
-		ips =domain_to_ip(dnsServer,d.strip())
-		if len(ips) != 0 :
-			longtime.write(d.strip()+'    '+str(ips[0])+'\n')
-			shorttime.write(d.strip()+'    '+str(ips[0])+'\n')
-		else:
-			print d,ips
-	except:
-		print domain
-longtime.close()
-shorttime.close()
+while True:
+	longtime = open('/var/www/html/hosts/hosts.'+str(time.strftime( ISOTIMEFORMAT, time.localtime())),'w')
+	shorttime = open('/var/www/html/hosts/hosts.latest','w')
+
+	valid_domains = set()
+
+	for d in open('../data/domains.txt').readlines():
+		time.sleep(10)
+		try:
+			ips =domain_to_ip(dnsServer,d.strip())
+			if len(ips) != 0 :
+				valid_domains.add(d)
+				longtime.write(d.strip()+'    '+str(ips[0])+'\n')
+				shorttime.write(d.strip()+'    '+str(ips[0])+'\n')
+			else:
+				print d,ips
+		except:
+			print domain
+	longtime.close()
+	shorttime.close()
+	fout = open('../data/domains.txt','w')
+	for vd in valid_domains:
+		fout.write(vd+'\n')
+	fout.close()
+
+
+	time.sleep(3600)
