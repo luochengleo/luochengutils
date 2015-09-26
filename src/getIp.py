@@ -32,17 +32,19 @@ while True:
 	valid_domains = set()
 
 	for d in open('../data/domains.txt').readlines():
-		time.sleep(10)
+		print 'DNS:::',d
+		time.sleep(1)
 		try:
 			ips =domain_to_ip(dnsServer,d.strip())
 			if len(ips) != 0 :
 				valid_domains.add(d)
+				print d,ips[0]
 				longtime.write(d.strip()+'    '+str(ips[0])+'\n')
 				shorttime.write(d.strip()+'    '+str(ips[0])+'\n')
 			else:
-				print d,ips
+				print d,'VOID'
 		except:
-			print domain
+			print d
 	longtime.close()
 	shorttime.close()
 	fout = open('../data/domains.txt','w')
