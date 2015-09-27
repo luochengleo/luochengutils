@@ -39,8 +39,8 @@ while True:
 			if len(ips) != 0 :
 				valid_domains.add(d)
 				print d,ips[0]
-				longtime.write(d.strip()+'    '+str(ips[0])+'\n')
-				shorttime.write(d.strip()+'    '+str(ips[0])+'\n')
+				longtime.write(str(ips[0])+'    '+d.strip()+'\n')
+				shorttime.write(str(ips[0])+'    '+d.strip()+'\n')
 			else:
 				print d,'VOID'
 		except:
@@ -53,4 +53,4 @@ while True:
 	fout.close()
 
 
-	time.sleep(3600)
+	time.sleep(24*3600)
